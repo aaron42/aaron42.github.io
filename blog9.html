@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Week 9 Post</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h3> Week 9 Blogpost </h3>
+    <p> This week, I am mainly working on the neural network training. However, because I am quite busy this week, and the approach I was going for turned out to be not that optimal, I haven't finished the prototyping yet. As a result, this blog post again does not have anything worth showing.
+	</p>
+	
+	<p>
+	I started with improving on some of the less polished things I finished last week. For example, the map was stored as an array of the movement cost. However, there is more stats related to the terrain. So I have changed the structure to record the map of the level as a class. All the stats of the terrain can be easily retrieved through x, y coordinates. The map is also stored as json file to make the code more maintainable. Another thing I improved is the character stats storing. It was previously just a simple dictionary. Now I also changed it into a class that contain all the relevant information. I am trying to find a good unique identifier like name that uniquely identifies the character well, since all the stats can potentially change, but I wasn't able to find such identifier, so now I am using character order which seems to be consistent at least within level. 
+	</p>
+	<p>
+	After improving the structure, I started to try to implement the neural network. I was working based on the brute approach that I previously tried in the example, and was trying to reimplement it to see if it works. The brute approach is basically trying to go through all the possible action space to find the best outcome based on reward. The only problem with this approach is that it relies on the same controls able to produce the same outcome. Althogh the it is not going to work later. I believe it is going to work for the tutorial level because I am sure that the tutorial level is pseudo-random and the same sequence of actions will produce the same result. I was trying to get a prototype to work so I decided to work from this approach first.
+	</p>
+	
+	<p>
+	I am not done with the implementation because of the limited time. During the implementation, I faced same problems. The most difficult part is how to change the action space to be my way of controlling. Previously, the action space includes buttons and some combinations available on the Gameboy. I am trying to update the action space to include the potential movements of the characters instead. The difficulty lies on the fact that the possible action is dynamically changing. Not only does it depend on the map, it also depends on the location of teammates, which may change during the turn. I am not sure whether the approach will work still with a dynamic action space to iterate on, and the dynamically update needed may also lower the speed of the execution a bit.
+	</p>
+	
+	<p>
+	Another difficulty is the reward function. The reward function can be most simply the enemy healths, like what I did earlier. But because the attacks always do the same damage unless missed, it is very difficult to distinguish the reward produced in the same turn. A lot of the different movements will be able to produce the same results, making the best solution not that distinguishable. Because of all the difficulties I encountered, I have decided that it may not be the best starting point. It is probably better for me to do a simpler brute force approach as a starting point.
+	</p>
+	
+	<p>
+	Next week, I will probably try to finish a much simpler approach as the starting point. After that, I will need to spend a lot more time and start working on the reinforcement learning. I am confident that I can finish the prototype this week since I have a lot more time this week compared to last week.
+	</p>
+	 
+  </body>
+     
+</html>

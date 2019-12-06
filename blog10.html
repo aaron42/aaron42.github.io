@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Week 10 Post</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h3> Week 10 Blogpost </h3>
+    <p> This week, I am mainly working on designing the neural network and bug-fixing the program.
+	</p>
+	
+	<p>
+	After some research, I found this guide at https://www.toptal.com/deep-learning/pytorch-reinforcement-learning-tutorial to be the best one teaching about reinforcement learning on pytorch. After studying about the guide and the accompanying code, it becomes obvious to me that the most important thing about reinforcement learning is finding the state, the action space, and the reward.
+	</p>
+	<p>
+	In the flappy bird example, the state is the graphical interface of the game repeated four times, the action space is the two state of to jump or not to jump, and the reward is passing the pipe, and not dying. In Fire Emblem, the state is very obvious to me. It will just be the state of the map including the map information and the unit information. Out of all the information, I picked HP and movement since they are the most important information. The reward is also obvious. Winning the level will be rewarded while losing the level will be penalized. The tricky part is the action space. While flappy bird has a simple action space, Fire Emblem has multiple characters to move and dynamic possibilities to move. The solution I found is that instead of defining the action to take. The action space will instead be the calculated score of each tile on the map. The score will be passed to the game and the characters will simply go to the tile that has the highest reward. This solution passes around the limitation of action space while making sense for a strategy game since tile score obviously makes sense.
+	</p>
+	
+	<p>
+	After a lot of modification, integration, and bugfixing of the codes I have. I have finished the prototype of the network. However, after start the test-runs, I have figured out a few problems. The first one and the one I was able to predict is how long the training takes. Even a short turn with very few units take very long to do, with all the unskippable animations. Not only that, I also noticed that I previously ignored the conversation part of the game. I was not able to find the variable that corresponds to conversation, but I did find one that corresponds to the mini-map. Because start key functions as both using the mini-map and skipping the dialogue, I can just aggressively press the start key, and press it again if the mini-map is shown. The turn taking long is hard to solve. While retrieving the unit information directly from memory will help a little bit, the game still takes long to process all the attack information. For tutorial, at best a turn will take 20 seconds still. The default 25000 iterations will then take 6 days to train. The second problem I found is that due to emulator limitation or some unknown bugs. The control is inconsistent. It may be due to the fact that I disabled the GUI because I did not figure out how to integrate it into the network, but the checking stat procedure that I previously found to be consistent is now quite inconsistent. Very often do I find missing information. This problem persists even when I add long delay after each key press, so I assume that because of my modification to the code, somehow the control passed to the game gets lost sometimes. It may be due to threading competition or some other bugs, but I will have to fix it. Right now, the training will randomly stop because of the bugs and I can't see the result of the training.
+	</p>
+	
+	<p>
+	The two problems I meet today are definitely challenging to fix. The inconsistent control one is a bit easier to fix. I will have to first figure out how to readd the GUI properly so that it can be a debugging tool to see when the controls are wrong. Right now, there is no way for me to easily figure out the mistakes because the error message is meaningless and verbose update will still miss a lot of information, especially because of the threading. The long training time issue is a lot harder to fix. I will first figure out how to potentially retrieve information from the memory directly without controls, this will make it a lot faster and a lot more consistent. Unfortunately, mGBA emulator has not implemented a speed up function a lot of emulators have, so I can't do that to speed up the process. However, if I add the information retrieval correctly and decrease the iterations, I think the program will be trained in a reasonable amount of time.
+	</p>
+	
+	<p>
+	Next week, I will focus on the two big problems I mentioned and try my best to fix them. If I am able to fix them, the next step will be do a long training and see the result. Because of the long training time, I can't modify the network very frequently, so I have to be careful about updating it if the result is not optimal. 
+	</p>
+	 
+  </body>
+     
+</html>

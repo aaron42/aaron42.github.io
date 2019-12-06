@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Week 7 Post</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h3> Week 7 Blogpost </h3>
+    <p> This week, I was mainly focusing on coding out the project. And because I did not have a lot of time and was facing some problems, I did not have a working prototype yet. So this blog post does not have any image.
+	</p>
+	
+	<p>
+	The first thing I spent time on was switching the development environment from Windows to Linux. Previously, I was running the game on Windows with Gym Retro by modifying its code. However, it turns out that it is very difficult to modify the code of Gym Retro since its source code is written in C++ and is quite complicated. To modify it will take a lot of time and effort to understand the source code first. So I decided to get rid of it completely and most of the libraries are a lot easier to install in Linux environment. I also needed to spend some time to set up the graphical interface output of WSL to Windows.
+	</p>
+	<p>
+	I was going to stick with the mGBA emulator. However, that is also written in C++ and in order to use it in Python, I need to do binding to Python, which I have no experience with. So I started to try to find some easier-to-use alternative. I searched for Python GBA emulator and PyBoy comes up. It is supposed to be quite efficient and easy to use. However, after I spent some times setting it up, and started to test it, I noticed that it is actually an emulator for gameboy, and not for gameboy advanced. I searched again more carefully and apparently Python only has Gameboy emulators written and no gameboy advanced emulator at all. So I had to go back to mGBA again and figure out how binding actually works. There is very few guides availalbe regarding this. The only thing I found was an issue opened about it and it wasn't really saying much. I searched up in the forum and in the issues and nothing shows up. After a lot of efforts studying about binding, I am still in the process of figuring out the solution. I will definitely check out the implementation in Gym Retro first to figure out how to programmatically simulate and play the game.
+	</p>
+	
+	<p>
+	For the rest of time I spent, I was mainly designing the implementation of the system. I have figured out how to do the movement of the units correctly by taking into account of the extra movement cost of some terrains like woods. I was also able to plot out the simple greedy approach to naively designate what the units should do each turn based on the different strategies of the auto-battles in Fire Emblem: Three Houses. The strategies are Charge, Focus, Fall Back, and Unite. Charge and focus are the more interesting ones here. Charge will just make the units try their best to attack units. If there are units in the attack range, they will do so. If there aren't , they will move as much as possible to get closer to enemy units. Focus is a better approach in which units are supposed to focus on their individual strengths when approaching the enemies. In play, it is a lot more effective than the charge strategy and can actually beat the free battles in Three Houses very often. However, it is a lot harder to be implemented so I will just do the charge approach as comparision at start.
+	</p>
+	
+        <p>
+	The implementation of the charge strategy is not difficult. For each friendly unit, I just need to do a whole map bfs search that records the shortest path to each tile. Then, the program will look for the enemy unit that has a shortest distance from the unit, and try to move as much as possible on that shortest path to the enemy unit. If it is able to reach it, it will choose to attack it, and if not, it will just choose to wait. More complicated problems such as weapon choices can be ignored for now for simplicity. But I imagine that in the attack screen, there should be some kind of variables that shows whether the currently selected weapon is effective or not. By optimizing for that variable, it is possible to use the effective weapon against enemy. There might also be variable indicating the strength of the currently selected weapon, which may also help the weapon choice decision. 
+	</p> 
+
+	<p>
+	This week, I will continue figuring out the issue regarding the emulator installation and binding. If it becomes really problematic. I may need to change the code base from Python to C++. I will check the Gym Retro implementation since it is one of the only examples I see that actually does the using program to emulate game job which I am doing.
+	</p>
+  </body>
+     
+</html>

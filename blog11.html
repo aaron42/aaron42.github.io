@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Week 11+12 Post</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h3> Week 11+12 Blogpost </h3>
+    <p> These two weeks, I have worked on improving the training of the neural network and a lot of bug fixing at the start, and it worked well. 
+	</p>
+	
+	<p>
+	As mentioned in the meeting last time, the first thing I decided to do was fixing the GUI of the training network that I broke with threading. I picked the solution by instinct, which was combining the two threads together. There will no longer be a separate thread that runs the game and a separate thread that does the background work of the network. But instead, there will only be one thread that does both. It will periodically update run the game and waits for the response, then goes back to the back end that decides the next button press. This turns out to work well. It not only fixes the GUI, so that I can watch the gameplay during the training, but also makes it a lot easier to do control, since there is no thread now, I can guanrantee that the control that is passed to the game will definitely be run. I no longer need to worry about the consensus. 
+	</p>
+	<p>
+	After fixing the GUI, I start the bug fixing. The bug fixing becomes a lot easier now that I can see what is actually going on. It turns out that the bug that the information regarding the units' information not being collected is because of an extra L button press at the information gathering stage. This has caused the same unit to be collected twice. So in the dictionary, they have the same position and thus one character is lost, causing the bug. After fixing the bugs, I ran the program for several times and was able to find out a lot more obvious bugs that I previously was not able to due to the lack of GUI. For example, there is a delay of movement which I did not consider that can cause the program to be stuck. There is also a delay at the start of the level showing the level animation which I ignored. The default setting of the retro program actually filtered out start key, even though it is necessary for me to use in order to skip the dialogue. I missed a check on the end of the game that potentially happens during the turn, which can cause the game to fail to reset and continue the training. I also missed a implementation that prevents the units from trying to go to the same space, which happens a lot because of the score-based system. After fixing all these bugs, the program was finally able to undergo the training without any bugs interrupting it, and I was able to start training the network. 
+	</p>
+	
+	<p>
+	After the training, the network is proved to be able to beat the level it is trained on pretty consistently. However, there is still some limitation. The first problem is the fact that I did not really figure out a way for the program to handle the training of a different kind of level. For example, in level 2, the winning of the game is decided to go to a specific space, which the program currently is not able to handle. Level 2 also has the problem of having some members join in the middle of the stage. While it is possible to handle this by checking the number of allies available for control before every turn. I decided that these levels are too tricky to figure out and I should do some of the more straight forward levels instead. So it turns out that the trained network is able to handle these straight forward levels pretty well. Though the progress is definitely not perfect and can use some improvements.
+	</p>
+	
+	<p>
+	I have been working on trying to improve the neural network. The first thing I was thinking of is adding more parameters to the input. Currently, there is only four dimensions of inputs, while the data collected is a lot more, so it's possible that a greater amount of input can help the network. The next thing I was considering is an increase of size of the training set. Currently, I have only used the current level it will do as the training set and the testing set, and has ignored on the cross validation aspect of the network. It seems like a method of using multiple levels for training can help the program grow to be better. Also, the structure of the network may need some changes, and I am not sure whether the mini-batch implementation that is supposed to help the network's stability actually helps the network in my case, since my network is not outputting direct actions. So that may be worth experimenting as well.
+	</p>
+	 
+  </body>
+     
+</html>
